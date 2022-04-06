@@ -37,3 +37,11 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+apps/*/bin
+apps/*/obj
+libs/*/bin
+libs/*/obj
+
+# IDE - VS Code
+.vs

@@ -1,4 +1,8 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "seeder": "apps/seeder",
+    "sync-one": "apps/sync-one",
+    "sync-two": "apps/sync-two"
+  }
 }
