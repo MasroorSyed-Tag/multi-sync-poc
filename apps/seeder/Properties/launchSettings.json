@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MultiSyncPoc.Seeder": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

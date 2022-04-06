@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MultiSyncPoc.SyncTwo": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+version: '3.9'
+
+volumes:
+  cb:
+
+networks:
+  cb-net:
+    ipam:
+      config:
+        - subnet: 172.24.0.0/24
+
+services:
+  couchbase:
+    container_name: cb
+    image: couchbase/server:enterprise-7.0.3
+    restart: always
+    ports:
+      - "8091-8095:8091-8095"
+      - "11210:11210"
+      - "9102:9102"
+    networks:
+      cb-net:
+        ipv4_address: 172.24.0.2
+    volumes:
+      - cb:/opt/couchbase/var
+
+  seeder:
+    container_name: seeder
+    build:
+      context: .
+      dockerfile: apps/seeder/Dockerfile
+    depends_on:
+      - couchbase
+    networks:
+      cb-net:
+        ipv4_address: 172.24.0.3
+
+  sync-one:
+    container_name: sync-one-app
+    build:
+      context: .
+      dockerfile: apps/sync-one/Dockerfile
+    depends_on:
+      - couchbase
+    networks:
+      cb-net:
+        ipv4_address: 172.24.0.4
+
+  sync-two:
+    container_name: sync-two-app
+    build:
+      context: .
+      dockerfile: apps/sync-two/Dockerfile
+    depends_on:
+      - couchbase
+    networks:
+      cb-net:
+        ipv4_address: 172.24.0.5
+
+
+
+#  gateway:
+#    image: couchbase/sync-gateway
+#    restart: always
+#    ports:
+#      - '4984:4984'
+#    volumes:
+#      - ./sync-gateway-config.json:/tmp/config/config.json
+#    networks:
+#      - couchbase
+#    command: -adminInterface :4985 /tmp/config/config.json
+#    depends_on:
+#      - couchbase
